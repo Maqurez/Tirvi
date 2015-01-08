@@ -1,0 +1,59 @@
+//
+   Created by Maqurez on 12/28/2014.
+
+html
+   head
+      meta(charset="utf-8")
+      meta(http-equiv="X-UA-Compatible", content="IE=edge,chrome=1")
+      meta(name="viewport", content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no")
+      title Tirvi
+      meta(name="description", content="")
+      link(rel="stylesheet", href="css/style.css")
+   body
+      div(class="header-container")
+         header(class="wrapper clearfix")
+            h1(class="title") Tirvi
+      div(class="main-container")
+         div(class="main wrapper clearfix")
+            div(id="task-container")
+               div(id="start-screen")
+                  div(id="app-types")
+                     span(id="tip-app", class="tip wide")
+                     span(class="app-button param half", id="type-count-but")
+                     span(class="app-button param half", id="type-time-but")
+                  div(id="task-types")
+                     span(id="tip-task", class="tip wide")
+                     span(class="type-button param half", id="type-prepo-but")
+                     span(class="type-button param half", id="type-trans-but")
+                  div(id="app-langs")
+                     span(id="tip-lang", class="tip wide")
+                     span(class="lang-button param quoter", id="en-but") en
+                     span(class="lang-button param quoter", id="ua-but") ua
+                     span(class="lang-button param quoter", id="ru-but") ru
+                     span(class="lang-button param quoter", id="de-but") de
+                  button(class="button wide" id="button-start") START
+               div(id="end-screen")
+                  span(class="result", id="result-points")
+                  span(class="result", id="result-correct")
+                  span(class="result", id="result-incorrect")
+                  button(class="button wide" id="button-clear") END
+               div(id="main-screen")
+                  div(id="timer")
+                  div(id="task")
+                     h5(id="tip-task-left",class="tip")
+                     div(id="left-task" class="task")
+                     h5(id="tip-task-right",class="tip")
+                     div(id="right-task" class="task")
+                  div(id="task-buttons")
+                     button(class="button half" id="button-y")
+                     button(class="button half" id="button-n")
+                  div(id="counter")
+                     span(class="result", id="points-counter") 0
+                     //span(class="result", id="words-counter") 0
+                     span(class="result", id="correct-counter") 0
+                     span(class="result", id="incorrect-counter") 0
+      div(class="footer-container")
+         footer(class="wrapper")
+      script(src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
+      script window.jQuery || document.write('<script src="js/vendor/jquery-1.11.1.min.js"><\/script>')
+      script(src="js/main.js")
