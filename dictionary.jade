@@ -2,12 +2,9 @@
    Created by Maqurez on 12/30/2014.
 
 html
-   head
-      meta(charset="utf-8")
-      meta(http-equiv="X-UA-Compatible", content="IE=edge,chrome=1")
-      title Tirvi Dictionary
-      meta(name="description", content="")
-      meta(name="viewport", content="width=device-width, initial-scale=1")
-      link(rel="stylesheet", href="css/style.css")
+   include imports/head.jade
    body
-      div(id="dictionary-main")
+      div(class="header-container")
+         header(class="wrapper clearfix")
+            h1(class="title") Tirvi
+      div(class="main-container")

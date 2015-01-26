@@ -103,6 +103,28 @@ h5 {
   text-align: center;
   font: bold 36px 'Arial Narrow';
 }
+#output-screen {
+  background: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 80%;
+  margin: 20px auto;
+}
+.output {
+  margin: 5px 0;
+  padding: 10px;
+  font: normal 18px Arial;
+  color: #fff;
+}
+.correct-out {
+  background: #1b7c55;
+}
+.incorrect-out {
+  background: #9d2f2b;
+}
 @media screen and (max-width: 400px) {
   #task-container {
     width: 100%;

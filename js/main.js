@@ -14,53 +14,73 @@ $(document).ready(function() {
  * DOM VARIABLES
  */
 
-var startScreen = $('#start-screen');
-var endScreen = $('#end-screen');
-var mainScreen = $('#main-screen');
+var startScreen = $('#start-screen'),
+    endScreen = $('#end-screen'),
+    mainScreen = $('#main-screen'),
+    outputScreen = $('#output-screen'),
 
-var TimerContainer = $('#timer');
+    TimerContainer = $('#timer'),
 
-var correctCounter = $('#correct-counter');
-var incorrectCounter = $('#incorrect-counter');
-var wordsRemainsCounter = $('#words-counter');
-var pointsCounter = $('#points-counter');
+    correctCounter = $('#correct-counter'),
+    incorrectCounter = $('#incorrect-counter'),
+    wordsRemainsCounter = $('#words-counter'),
+    pointsCounter = $('#points-counter'),
 
-var TaskTypeButPreposition =  $('#type-prepo-but');
-var TaskTypeButTranslation =  $('#type-trans-but');
-var AppTypeButTraining = $('#type-count-but');
-var AppTypeButCompetition = $('#type-time-but');
-var AppTipAppType = $('#tip-app');
-var AppTipTaskType = $('#tip-task');
-var AppTipLanguage = $('#tip-lang');
-var AppAnswerButYes =  $('#button-y');
-var AppAnswerButNo =  $('#button-n');
-var AppButStart =  $('#button-start');
-var AppButRestart = $('#button-clear');
-var AppTipTaskLeft =  $('#tip-task-left');
-var AppTipTaskRight =  $('#tip-task-right');
+    TaskTypeButPreposition =  $('#type-prepo-but'),
+    TaskTypeButTranslation =  $('#type-trans-but'),
+    AppTypeButTraining = $('#type-count-but'),
+    AppTypeButCompetition = $('#type-time-but'),
+    AppTipAppType = $('#tip-app'),
+    AppTipTaskType = $('#tip-task'),
+    AppTipLanguage = $('#tip-lang'),
+    AppAnswerButYes =  $('#button-y'),
+    AppAnswerButNo =  $('#button-n'),
+    AppButStart =  $('#button-start'),
+    AppButRestart = $('#button-clear'),
+    AppButShowOutput = $('#output-open-but'),
 
-var AppLangButEn = $('#en-but');
-var AppLangButUa = $('#ua-but');
-var AppLangButRu = $('#ru-but');
-var AppLangButDe = $('#de-but');
+    AppTipTaskLeft =  $('#tip-task-left'),
+    AppTipTaskRight =  $('#tip-task-right'),
 
-var appLang = "en";
-var appType = 2;
-var taskType = 1;
+    AppLangButEn = $('#en-but'),
+    AppLangButUa = $('#ua-but'),
+    AppLangButRu = $('#ru-but'),
+    AppLangButDe = $('#de-but'),
 
-var appTimeRemaining = 0;
-var TIME_REWARD_FOR_COMPETITION = 100;
+    appLang = "en",
+    appType = 2,
+    taskType = 1,
 
-var TASK_LIMIT_FOR_TRAINING = 20;
+    appTimeRemaining = 0,
+    TIME_REWARD_FOR_COMPETITION = 100,
 
-var points = 0;
-var seriaCounter = 0;
+    TASK_LIMIT_FOR_TRAINING = 20,
 
-var rcurrent = "";
-var currentWord = {};
-var correct = [];
-var cpoints = 0;
-var ipoints = 0;
+    points = 0,
+    seriaCounter = 0,
+
+    rcurrent = "",
+    currentWord = {},
+    correct = [],
+    cpoints = 0,
+    ipoints = 0;
+
+// TODO All strings to variables for speedy localization
+
+/**
+ *
+ * LOCALIZATION
+ */
+
+//MAIN SCREEN
+var LANG_OUTPUT_WORD_USES_WITH = "",
+    LANG_OUTPUT_WORD_TRANSLATED_AS ="",
+
+// END SCREEN
+    LANG_RESULT_CORRECT_COUNT = "",
+    LANG_RESULT_INCORRECT_COUNT = "";
+
+// TODO Add user level functionality
 
 var playerLvl = 1;
 var maxLvl = 1000;
@@ -81,11 +101,15 @@ AppTypeButTraining.on('click', {type : 2}, setAppType);
 TaskTypeButPreposition.on('click', {type : 1}, setType);
 TaskTypeButTranslation.on('click', {type : 2}, setType);
 
+AppButShowOutput.on('click', function() {outputScreen.show()});
+outputScreen.on('click', function() {outputScreen.hide()});
+
 function initial() {
     mainScreen.hide();
     TimerContainer.hide();
     endScreen.hide();
     startScreen.show();
+    outputScreen.hide();
     updateInterface();
 }
 
@@ -260,23 +284,17 @@ function updateInterface() {
 
 function getTranslation(word, lng) {
     switch (lng) {
-        case "en" :
-            return word.translation.en;
-            break;
         case "ua" :
-            if (word.translation.ua === "") return word.translation.en;
-            return word.translation.ua;
+            return word.translation.ua === "" ? word.translation.en : word.translation.ua;
             break;
         case "de" :
-            if (word.translation.de === "") return word.translation.en;
-            return word.translation.de;
+            return word.translation.de === "" ? word.translation.en : word.translation.de;
             break;
         case "ru" :
-            if (word.translation.ru === "") return word.translation.en;
-            return word.translation.ru;
+            return word.translation.ru === "" ? word.translation.en : word.translation.ru;
             break;
         default :
-            break;
+            return word.translation.en;
     }
 }
 
@@ -285,6 +303,8 @@ function move(word) {
 }
 
 function check(event) {
+    var elDiv = document.createElement("div");
+    $(elDiv).addClass("output");
     //switch (appType) {
     //    case 1 :
             if (correct.indexOf(rcurrent) != -1) {
@@ -295,10 +315,12 @@ function check(event) {
                     points += seriaCounter * 10;
                     appTimeRemaining += TIME_REWARD_FOR_COMPETITION;
                     move(currentWord);
+                    $(elDiv).addClass("correct-out");
                 }
                 else {
                     ipoints++;
                     seriaCounter = 0;
+                    $(elDiv).addClass("incorrect-out");
                 }
             }
             else {
@@ -309,15 +331,19 @@ function check(event) {
                     points += seriaCounter * 10;
                     appTimeRemaining += TIME_REWARD_FOR_COMPETITION;
                     move(currentWord);
+                    $(elDiv).addClass("output correct-out");
                 }
                 else {
                     ipoints++;
                     seriaCounter = 0;
+                    $(elDiv).addClass("incorrect-out");
                 }
             }
     //        break;
     //    default : break;
     //}
+    $(elDiv).html(currentWord.word + " uses with: " + correct + " || your answer: " + rcurrent);
+    outputScreen.append(elDiv);
     if (task.length == 0) {
         appEnd();
     }
@@ -389,23 +415,65 @@ function getVerbs() {
  * DATA
  */
 
+// TODO Groups prepositions. WOrds in different forms
+
 var prepositions = ["ב", "ל", "מ", "את", "על", "עם", "בפני", "אל"];
+
+// TODO Add words
 
 var words = [
     {
         id : 0,
-        word : "להשתמש",
         type : "verb",
+        root : "שמש",
+        model : "התפעל",
         with : ["ב"],
         translation : {en : "to use", ua : "використовувати", de : "", ru : "использовать"},
-        lvl : 1
+        lvl : 1,
+        forms : [
+            {
+                word : "להשתמש",
+                time : -1,
+                lvl : 1
+            },
+            {
+                word : "משתמש",
+                time : 1,
+                gender : 1,
+                number : 1,
+                lvl : 1
+            },
+            {
+                word : "משתמשת",
+                time : 1,
+                gender : 0,
+                number : 1,
+                lvl : 1
+            }
+        ]
     },
     {
-        word : "לשלם",
+        id : 1,
         type : "verb",
         with : ["ל", "ב"],
         translation : {en : "to pay", ua : "платити", de : "", ru : "платить"},
-        lvl : 1
+        lvl : 1,
+        forms : [
+            {
+                word : "לשלם",
+                time : -1,
+                lvl : 1
+            }
+        ]
+    },
+    {
+        id : 2,
+        type : "preposition",
+        translation : {en : "in", ua : "", ru : ""},
+        lvl : 1,
+        forms : [
+
+        ]
     },
     {
         word : "להתרחץ",
@@ -538,7 +606,7 @@ var words = [
         type : "verb",
         with : ["על"],
         translation : {en : "to dream", ua : "мріяти", de : "", ru : "мечтать"},
-        lvl : 1
+        lvl : 2
     },
     {
         word : "להימאס",
@@ -587,7 +655,7 @@ var words = [
         type : "verb",
         with : ["את"],
         translation : {en : "to rent", ua : "орендувати", de : "", ru : "арендовать"},
-        lvl : 1
+        lvl : 2
     },
     {
         word : "לחתום",
@@ -650,28 +718,28 @@ var words = [
         type : "verb",
         with : ["את", "ב"],
         translation : {en : "to choose", ua : "вибирати", de : "", ru : "выбирать"},
-        lvl : 1
+        lvl : 2
     },
     {
         word : "להקשיב",
         type : "verb",
         with : ["ל"],
         translation : {en : "to listen", ua : "слухати", de : "", ru : "слушать"},
-        lvl : 1
+        lvl : 2
     },
     {
         word : "להתקדם",
         type : "verb",
         with : ["ב"],
         translation : {en : "to make progress", ua : "продвигатися", de : "", ru : "продвигаться"},
-        lvl : 1
+        lvl : 2
     },
     {
         word : "להמליץ",
         type : "verb",
         with : ["ל", "על"],
         translation : {en : "to recommend", ua : "рекомендувати", de : "", ru : "рекомендовать"},
-        lvl : 1
+        lvl : 2
     },
     {
         word : "להצליח",
@@ -685,20 +753,41 @@ var words = [
         type : "verb",
         with : ["ב"],
         translation : {en : "to win", ua : "перемогти", de : "", ru : "победить"},
-        lvl : 1
+        lvl : 3
     },
     {
         word : "להיכשל",
         type : "verb",
         with : ["ב"],
         translation : {en : "to fail", ua : "провалити", de : "", ru : "провалить"},
-        lvl : 1
+        lvl : 3
     },
     {
         word : "להיכנס",
         type : "verb",
         with : ["ל"],
         translation : {en : "to enter", ua : "заходити", de : "", ru : "входить"},
+        lvl : 1
+    },
+    {
+        word : "לגור",
+        type : "verb",
+        with : ["ב"],
+        translation : {en : "to live", ua : "", de : "", ru : "проживать"},
+        lvl : 1
+    },
+    {
+        word : "לטייל",
+        type : "verb",
+        with : ["ב", "ל"],
+        translation : {en : "to travel", ua : "", de : "", ru : "гулять, путешествовать"},
+        lvl : 1
+    },
+    {
+        word : "לזכור",
+        type : "verb",
+        with : ["את"],
+        translation : {en : "to remember", ua : "", de : "", ru : "помнить"},
         lvl : 1
     }
 ];
