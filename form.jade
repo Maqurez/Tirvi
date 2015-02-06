@@ -1,0 +1,51 @@
+//
+   Created by Maqurez on 2/6/2015.
+
+doctype html
+html
+   head
+      meta(charset="utf-8")
+      link(rel="stylesheet", href="css/style.css")
+   body
+      div(id="wrapper")
+         form(id="lexeme-form")
+            h3 Lexeme
+            label(class="label-lexeme", for="root") Root
+            select(name="root")
+            br
+            label(class="label-lexeme", for="type") Type
+            select(name="type")
+            br
+            label(class="label-lexeme", for="model") Model
+            select(name="model")
+            h3 Lexeme forms
+            h4 number
+            fieldset
+               input(type="checkbox")
+               | one
+               input(type="checkbox")
+               | many
+            h4 genus
+            fieldset
+               input(type="checkbox", value="1")
+               | masculine
+               input(type="checkbox")
+               | femine
+            h4 time (verbs only)
+            fieldset
+               input(type="checkbox")
+               | infinitive
+               input(type="checkbox")
+               | present
+               input(type="checkbox")
+               | past
+               input(type="checkbox")
+               | future
+            h4 person
+            fieldset
+               input(type="checkbox")
+               | 1st
+               input(type="checkbox")
+               | 2nd
+               input(type="checkbox")
+               | 3rd

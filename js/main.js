@@ -433,22 +433,19 @@ var words = [
         forms : [
             {
                 word : "להשתמש",
-                time : -1,
-                lvl : 1
+                time : 0
             },
             {
                 word : "משתמש",
                 time : 1,
                 gender : 1,
-                number : 1,
-                lvl : 1
+                number : 1
             },
             {
                 word : "משתמשת",
                 time : 1,
                 gender : 0,
-                number : 1,
-                lvl : 1
+                number : 1
             }
         ]
     },
@@ -461,18 +458,22 @@ var words = [
         forms : [
             {
                 word : "לשלם",
-                time : -1,
-                lvl : 1
+                time : -1
             }
         ]
     },
     {
         id : 2,
-        type : "preposition",
+        type : "pronoun",
         translation : {en : "in", ua : "", ru : ""},
         lvl : 1,
         forms : [
-
+            {
+                word : "בו",
+                person : "3",
+                number : "1",
+                genus : "1"
+            }
         ]
     },
     {
