@@ -21,10 +21,9 @@ html
                      span(class="type-button param half", id="type-trans-but")
                   div(id="app-langs")
                      span(id="tip-lang", class="tip wide")
-                     span(class="lang-button param quoter", id="en-but") en
-                     span(class="lang-button param quoter", id="ua-but") ua
-                     span(class="lang-button param quoter", id="ru-but") ru
-                     span(class="lang-button param quoter", id="de-but") de
+                     span(class="lang-button param third", id="en-but") en
+                     span(class="lang-button param third", id="ua-but") ua
+                     span(class="lang-button param third", id="ru-but") ru
                   button(class="button wide" id="button-start") START
                div(id="end-screen")
                   span(class="result", id="result-points")
@@ -48,10 +47,9 @@ html
                      span(class="result", id="incorrect-counter") 0
                   button(id="output-open-but", class="button wide") SHOW RESULTS
                div(id="output-screen")
-
+                  button(id="output-close-but", class="button wide") HIDE RESULTS
 
       div(class="footer-container")
          footer(class="wrapper")
       script(src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
-      script window.jQuery || document.write('<script src="js/vendor/jquery-1.11.1.min.js"><\/script>')
       script(src="js/main.js")

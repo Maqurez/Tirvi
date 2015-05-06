@@ -45,7 +45,7 @@ h5 {
   border: 1px solid #00281c;
   cursor: pointer;
 }
-.quoter {
+.quarter {
   width: 25%;
 }
 .half {
@@ -53,6 +53,9 @@ h5 {
 }
 .wide {
   width: 100%;
+}
+.third {
+  width: 33.33%;
 }
 .button:hover {
   background: #384744;

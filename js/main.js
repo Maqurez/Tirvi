@@ -11,6 +11,15 @@ $(document).ready(function() {
  */
 
 /**
+ * Some notations for developer
+ */
+
+var genuses = {1 : "masculine", 0 : "femine"},
+    times = {"-1" : "infinitive", 1 : "present", 0 : "past", 3 : "future"},
+    numbers = {1 : "one", 2 : "many"},
+    persons = {1 : "1st person", 2 : "2nd person", 3 : "3rd person"};
+
+/**
  * DOM VARIABLES
  */
 
@@ -38,6 +47,7 @@ var startScreen = $('#start-screen'),
     AppButStart =  $('#button-start'),
     AppButRestart = $('#button-clear'),
     AppButShowOutput = $('#output-open-but'),
+    AppButHideOutput = $('#output-close-but'),
 
     AppTipTaskLeft =  $('#tip-task-left'),
     AppTipTaskRight =  $('#tip-task-right'),
@@ -45,7 +55,6 @@ var startScreen = $('#start-screen'),
     AppLangButEn = $('#en-but'),
     AppLangButUa = $('#ua-but'),
     AppLangButRu = $('#ru-but'),
-    AppLangButDe = $('#de-but'),
 
     appLang = "en",
     appType = 2,
@@ -53,6 +62,7 @@ var startScreen = $('#start-screen'),
 
     appTimeRemaining = 0,
     TIME_REWARD_FOR_COMPETITION = 100,
+    TIME_PENALTY_FOR_COMPETITION = 200,
 
     TASK_LIMIT_FOR_TRAINING = 20,
 
@@ -95,14 +105,13 @@ AppAnswerButNo.on('click', {answer : 0}, check);
 AppLangButEn.on('click', {lang : "en"}, setLang);
 AppLangButUa.on('click', {lang : "ua"}, setLang);
 AppLangButRu.on('click', {lang : "ru"}, setLang);
-AppLangButDe.on('click', {lang : "de"}, setLang);
 AppTypeButCompetition.on('click', {type : 1}, setAppType);
 AppTypeButTraining.on('click', {type : 2}, setAppType);
 TaskTypeButPreposition.on('click', {type : 1}, setType);
 TaskTypeButTranslation.on('click', {type : 2}, setType);
 
 AppButShowOutput.on('click', function() {outputScreen.show()});
-outputScreen.on('click', function() {outputScreen.hide()});
+AppButHideOutput.on('click', function() {outputScreen.hide()});
 
 function initial() {
     mainScreen.hide();
@@ -110,6 +119,7 @@ function initial() {
     endScreen.hide();
     startScreen.show();
     outputScreen.hide();
+    outputScreen.children().remove(".output");
     updateInterface();
 }
 
@@ -233,6 +243,8 @@ function updateInterface() {
             AppAnswerButYes.text("ТАК");
             AppAnswerButNo.text("НІ");
             AppButStart.text("ПОЧАТИ");
+            AppButShowOutput.text("ПОКАЗАТИ ВІДПОВІДІ");
+            AppButHideOutput.text("ЗАКРИТИ");
             AppTypeButCompetition.text("Змагання");
             AppTypeButTraining.text("Тренування");
             AppTipAppType.text("Оберіть тип: ");
@@ -253,6 +265,8 @@ function updateInterface() {
             AppAnswerButYes.text("ДА");
             AppAnswerButNo.text("НЕТ");
             AppButStart.text("НАЧАТЬ");
+            AppButShowOutput.text("ПОКАЗАТЬ ОТВЕТЫ");
+            AppButHideOutput.text("ЗАКРЫТЬ");
             AppTipTaskLeft.text("глагол");
             AppTypeButCompetition.text("Соревнование");
             AppTypeButTraining.text("Тренировка");
@@ -262,14 +276,14 @@ function updateInterface() {
             if (taskType == 1) AppTipTaskRight.text("используется с");
             if (taskType == 2) AppTipTaskRight.text("переводится как");
             break;
-        case "de" :
-            break;
         default :
             TaskTypeButPreposition.text("verb - preposition");
             TaskTypeButTranslation.text("word - translation");
             AppAnswerButYes.text("YES");
             AppAnswerButNo.text("NO");
             AppButStart.text("START");
+            AppButShowOutput.text("SHOW ANSWERS");
+            AppButHideOutput.text("CLOSE");
             AppTipTaskLeft.text("verb");
             AppTypeButCompetition.text("Competition");
             AppTypeButTraining.text("Training");
@@ -286,9 +300,6 @@ function getTranslation(word, lng) {
     switch (lng) {
         case "ua" :
             return word.translation.ua === "" ? word.translation.en : word.translation.ua;
-            break;
-        case "de" :
-            return word.translation.de === "" ? word.translation.en : word.translation.de;
             break;
         case "ru" :
             return word.translation.ru === "" ? word.translation.en : word.translation.ru;
@@ -320,6 +331,7 @@ function check(event) {
                 else {
                     ipoints++;
                     seriaCounter = 0;
+                    appTimeRemaining -= TIME_PENALTY_FOR_COMPETITION;
                     $(elDiv).addClass("incorrect-out");
                 }
             }
@@ -336,13 +348,41 @@ function check(event) {
                 else {
                     ipoints++;
                     seriaCounter = 0;
+                    appTimeRemaining -= TIME_PENALTY_FOR_COMPETITION;
                     $(elDiv).addClass("incorrect-out");
                 }
             }
     //        break;
     //    default : break;
     //}
-    $(elDiv).html(currentWord.word + " uses with: " + correct + " || your answer: " + rcurrent);
+
+    var resultsConnectString = "";
+    if (taskType == 1) {
+        switch (appLang) {
+            case "ua" :
+                resultsConnectString = "використовується з";
+                break;
+            case "ru" :
+                resultsConnectString = "используется с";
+                break;
+            default :
+                resultsConnectString = "used with";
+        }
+    }
+    else {
+        switch (appLang) {
+            case "ua" :
+                resultsConnectString = "перекладається як";
+                break;
+            case "ru" :
+                resultsConnectString = "переводится как";
+                break;
+            default :
+                resultsConnectString = "translated as";
+        }
+    }
+
+    $(elDiv).html(currentWord.word + " " + resultsConnectString + " " + correct);
     outputScreen.append(elDiv);
     if (task.length == 0) {
         appEnd();
@@ -424,66 +464,66 @@ var prepositions = ["ב", "ל", "מ", "את", "על", "עם", "בפני", "אל"
 var words = [
     {
         id : 0,
+        word : "להשתמש",
+        type : "verb",
+        root : "שמש",
+        model : "התפעל",
+        time : 1,
+        with : ["ב"],
+        translation : {en : "to use", ua : "використовувати", de : "", ru : "использовать"},
+        lvl : 1
+    },
+    {
+        id : 1,
+        word : "משתמשת",
+        time : 2,
+        gender : 0,
+        number : 1,
         type : "verb",
         root : "שמש",
         model : "התפעל",
         with : ["ב"],
         translation : {en : "to use", ua : "використовувати", de : "", ru : "использовать"},
-        lvl : 1,
-        forms : [
-            {
-                word : "להשתמש",
-                time : 0
-            },
-            {
-                word : "משתמש",
-                time : 1,
-                gender : 1,
-                number : 1
-            },
-            {
-                word : "משתמשת",
-                time : 1,
-                gender : 0,
-                number : 1
-            }
-        ]
-    },
-    {
-        id : 1,
-        type : "verb",
-        with : ["ל", "ב"],
-        translation : {en : "to pay", ua : "платити", de : "", ru : "платить"},
-        lvl : 1,
-        forms : [
-            {
-                word : "לשלם",
-                time : -1
-            }
-        ]
-    },
-    {
-        id : 2,
-        type : "pronoun",
-        translation : {en : "in", ua : "", ru : ""},
-        lvl : 1,
-        forms : [
-            {
-                word : "בו",
-                person : "3",
-                number : "1",
-                genus : "1"
-            }
-        ]
-    },
-    {
-        word : "להתרחץ",
-        type : "verb",
-        with : ["ב"],
-        translation : {en : "to wash", ua : "купатися", de : "", ru : "купаться"},
         lvl : 1
     },
     {
+        id : 2,
+        word : "משתמש",
+        type : "verb",
+        root : "שמש",
+        model : "התפעל",
+        time : 2,
+        gender : 1,
+        number : 1,
+        with : ["ב"],
+        translation : {en : "to use", ua : "використовувати", de : "", ru : "использовать"},
+        lvl : 1
+    },
+    {
+        id : 3,
+        word : "השתמשה",
+        type : "verb",
+        root : "שמש",
+        model : "התפעל",
+        time : 3,
+        gender : 0,
+        number : 1,
+        person : 3,
+        with : ["ב"],
+        translation : {en : "to use", ua : "використовувати", de : "", ru : "использовать"},
+        lvl : 1
+    },
+    {
+        id : 4,
+        word : "לשלם",
+        type : "verb",
+        time : 1,
+        with : ["ל", "ב"],
+        translation : {en : "to pay", ua : "платити", de : "", ru : "платить"},
+        lvl : 1
+    },
+    {
+        id : 5,
         word : "להשתתף",
         type : "verb",
         with : ["ב"],
@@ -491,6 +531,7 @@ var words = [
         lvl : 1
     },
     {
+        id : 6,
         word : "לגרום",
         type : "verb",
         with : ["ל"],
@@ -498,6 +539,7 @@ var words = [
         lvl : 1
     },
     {
+        id : 7,
         word : "לבצע",
         type : "verb",
         with : ["את"],
@@ -505,6 +547,7 @@ var words = [
         lvl : 1
     },
     {
+        id : 8,
         word : "לתפוס",
         type : "verb",
         with : ["את"],
@@ -512,6 +555,7 @@ var words = [
         lvl : 1
     },
     {
+        id : 9,
         word : "לדרוש",
         type : "verb",
         with : ["את", "מ"],
@@ -519,6 +563,7 @@ var words = [
         lvl : 1
     },
     {
+        id : 10,
         word : "לאשר",
         type : "verb",
         with : ["את"],
@@ -526,6 +571,7 @@ var words = [
         lvl : 1
     },
     {
+        id : 11,
         word : "להציע",
         type : "verb",
         with : ["ל"],
@@ -533,6 +579,7 @@ var words = [
         lvl : 1
     },
     {
+        id : 12,
         word : "לסלוח",
         type : "verb",
         with : ["ל"],
@@ -540,6 +587,7 @@ var words = [
         lvl : 1
     },
     {
+        id : 13,
         word : "להתעניין",
         type : "verb",
         with : ["ב"],
@@ -547,6 +595,7 @@ var words = [
         lvl : 1
     },
     {
+        id : 14,
         word : "להמשיך",
         type : "verb",
         with : ["את"],
@@ -554,6 +603,7 @@ var words = [
         lvl : 1
     },
     {
+        id : 15,
         word : "לענות",
         type : "verb",
         with : ["ל"],
@@ -561,6 +611,7 @@ var words = [
         lvl : 1
     },
     {
+        id : 16,
         word : "לקבל",
         type : "verb",
         with : ["מ", "את"],
@@ -568,6 +619,7 @@ var words = [
         lvl : 1
     },
     {
+        id : 17,
         word : "להסביר",
         type : "verb",
         with : ["ל"],
@@ -575,6 +627,7 @@ var words = [
         lvl : 1
     },
     {
+        id : 18,
         word : "לבלות",
         type : "verb",
         with : ["ב", "עם"],
@@ -582,6 +635,7 @@ var words = [
         lvl : 1
     },
     {
+        id : 19,
         word : "להתלונן",
         type : "verb",
         with : ["בפני", "על"],
@@ -589,6 +643,7 @@ var words = [
         lvl : 1
     },
     {
+        id : 20,
         word : "להתגעגע",
         type : "verb",
         with : ["אל", "ל"],
@@ -596,6 +651,7 @@ var words = [
         lvl : 1
     },
     {
+        id : 21,
         word : "להחזיר",
         type : "verb",
         with : ["ל", "מ", "את"],
@@ -603,6 +659,7 @@ var words = [
         lvl : 1
     },
     {
+        id : 22,
         word : "לחלום",
         type : "verb",
         with : ["על"],
@@ -610,6 +667,7 @@ var words = [
         lvl : 2
     },
     {
+        id : 23,
         word : "להימאס",
         type : "verb",
         with : ["מ"],
@@ -617,6 +675,7 @@ var words = [
         lvl : 1
     },
     {
+        id : 24,
         word : "לבקש",
         type : "verb",
         with : ["מ", "את"],
@@ -624,6 +683,7 @@ var words = [
         lvl : 1
     },
     {
+        id : 25,
         word : "להחליט",
         type : "verb",
         with : ["את"],
@@ -631,6 +691,7 @@ var words = [
         lvl : 1
     },
     {
+        id : 26,
         word : "להסתדר",
         type : "verb",
         with : ["ב", "עם"],
@@ -638,6 +699,7 @@ var words = [
         lvl : 1
     },
     {
+        id : 27,
         word : "לדאוג",
         type : "verb",
         with : ["ל"],
@@ -645,6 +707,7 @@ var words = [
         lvl : 1
     },
     {
+        id : 28,
         word : "לסמוך",
         type : "verb",
         with : ["על"],
@@ -652,6 +715,7 @@ var words = [
         lvl : 1
     },
     {
+        id : 29,
         word : "לשכור",
         type : "verb",
         with : ["את"],
@@ -659,6 +723,7 @@ var words = [
         lvl : 2
     },
     {
+        id : 30,
         word : "לחתום",
         type : "verb",
         with : ["על"],
@@ -666,6 +731,7 @@ var words = [
         lvl : 1
     },
     {
+        id : 31,
         word : "למהר",
         type : "verb",
         with : ["ל"],
@@ -673,6 +739,7 @@ var words = [
         lvl : 1
     },
     {
+        id : 32,
         word : "לסיים",
         type : "verb",
         with : ["את"],
@@ -680,6 +747,7 @@ var words = [
         lvl : 1
     },
     {
+        id : 33,
         word : "להכין",
         type : "verb",
         with : ["את"],
@@ -687,6 +755,7 @@ var words = [
         lvl : 1
     },
     {
+        id : 34,
         word : "לשכוח",
         type : "verb",
         with : ["את"],
@@ -694,6 +763,7 @@ var words = [
         lvl : 1
     },
     {
+        id : 35,
         word : "להזמין",
         type : "verb",
         with : ["את"],
@@ -701,6 +771,7 @@ var words = [
         lvl : 1
     },
     {
+        id : 36,
         word : "להצטער",
         type : "verb",
         with : ["על"],
@@ -708,6 +779,7 @@ var words = [
         lvl : 1
     },
     {
+        id : 37,
         word : "להפסיק",
         type : "verb",
         with : ["את"],
@@ -715,6 +787,7 @@ var words = [
         lvl : 1
     },
     {
+        id : 38,
         word : "לבחור",
         type : "verb",
         with : ["את", "ב"],
@@ -722,6 +795,7 @@ var words = [
         lvl : 2
     },
     {
+        id : 39,
         word : "להקשיב",
         type : "verb",
         with : ["ל"],
@@ -729,6 +803,7 @@ var words = [
         lvl : 2
     },
     {
+        id : 40,
         word : "להתקדם",
         type : "verb",
         with : ["ב"],
@@ -736,6 +811,7 @@ var words = [
         lvl : 2
     },
     {
+        id : 41,
         word : "להמליץ",
         type : "verb",
         with : ["ל", "על"],
@@ -743,6 +819,7 @@ var words = [
         lvl : 2
     },
     {
+        id : 42,
         word : "להצליח",
         type : "verb",
         with : ["ב"],
@@ -750,6 +827,7 @@ var words = [
         lvl : 1
     },
     {
+        id : 43,
         word : "לנצח",
         type : "verb",
         with : ["ב"],
@@ -757,6 +835,7 @@ var words = [
         lvl : 3
     },
     {
+        id : 44,
         word : "להיכשל",
         type : "verb",
         with : ["ב"],
@@ -764,6 +843,7 @@ var words = [
         lvl : 3
     },
     {
+        id : 45,
         word : "להיכנס",
         type : "verb",
         with : ["ל"],
@@ -771,6 +851,7 @@ var words = [
         lvl : 1
     },
     {
+        id : 46,
         word : "לגור",
         type : "verb",
         with : ["ב"],
@@ -778,6 +859,7 @@ var words = [
         lvl : 1
     },
     {
+        id : 47,
         word : "לטייל",
         type : "verb",
         with : ["ב", "ל"],
@@ -785,6 +867,7 @@ var words = [
         lvl : 1
     },
     {
+        id : 48,
         word : "לזכור",
         type : "verb",
         with : ["את"],
