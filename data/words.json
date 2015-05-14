@@ -1,0 +1,414 @@
+[
+  {
+    id : 0,
+    word : "??????",
+    type : "verb",
+    root : "???",
+    model : "?????",
+    time : 1,
+    with : ["?"],
+    translation : {en : "to use", ua : "використовувати", de : "", ru : "использовать"},
+    lvl : 1
+  },
+  {
+    id : 1,
+    word : "??????",
+    time : 2,
+    gender : 0,
+    number : 1,
+    type : "verb",
+    root : "???",
+    model : "?????",
+    with : ["?"],
+    translation : {en : "to use", ua : "використовувати", de : "", ru : "использовать"},
+    lvl : 1
+  },
+  {
+    id : 2,
+    word : "?????",
+    type : "verb",
+    root : "???",
+    model : "?????",
+    time : 2,
+    gender : 1,
+    number : 1,
+    with : ["?"],
+    translation : {en : "to use", ua : "використовувати", de : "", ru : "использовать"},
+    lvl : 1
+  },
+  {
+    id : 3,
+    word : "??????",
+    type : "verb",
+    root : "???",
+    model : "?????",
+    time : 3,
+    gender : 0,
+    number : 1,
+    person : 3,
+    with : ["?"],
+    translation : {en : "to use", ua : "використовувати", de : "", ru : "использовать"},
+    lvl : 1
+  },
+  {
+    id : 4,
+    word : "????",
+    type : "verb",
+    time : 1,
+    with : ["?", "?"],
+    translation : {en : "to pay", ua : "платити", de : "", ru : "платить"},
+    lvl : 1
+  },
+  {
+    id : 5,
+    word : "??????",
+    type : "verb",
+    with : ["?"],
+    translation : {en : "to participate", ua : "брати участь", de : "", ru : "участвовать"},
+    lvl : 1
+  },
+  {
+    id : 6,
+    word : "?????",
+    type : "verb",
+    with : ["?"],
+    translation : {en : "to cause", ua : "спричин€ти", de : "", ru : "спричин€ть"},
+    lvl : 1
+  },
+  {
+    id : 7,
+    word : "????",
+    type : "verb",
+    with : ["??"],
+    translation : {en : "to perform", ua : "виконувати", de : "", ru : "использовать"},
+    lvl : 1
+  },
+  {
+    id : 8,
+    word : "?????",
+    type : "verb",
+    with : ["??"],
+    translation : {en : "to catch", ua : "ловити", de : "", ru : "ловить"},
+    lvl : 1
+  },
+  {
+    id : 9,
+    word : "?????",
+    type : "verb",
+    with : ["??", "?"],
+    translation : {en : "to demand", ua : "вимагати", de : "", ru : "требовать"},
+    lvl : 1
+  },
+  {
+    id : 10,
+    word : "????",
+    type : "verb",
+    with : ["??"],
+    translation : {en : "to approve", ua : "затвердити", de : "", ru : "утверждать"},
+    lvl : 1
+  },
+  {
+    id : 11,
+    word : "?????",
+    type : "verb",
+    with : ["?"],
+    translation : {en : "to suggest", ua : "пропонувати", de : "", ru : "предлагать"},
+    lvl : 1
+  },
+  {
+    id : 12,
+    word : "?????",
+    type : "verb",
+    with : ["?"],
+    translation : {en : "to forgive", ua : "прощати", de : "", ru : "прощать"},
+    lvl : 1
+  },
+  {
+    id : 13,
+    word : "????????",
+    type : "verb",
+    with : ["?"],
+    translation : {en : "to be interested", ua : "ц≥кавитис€", de : "", ru : "интересоватьс€"},
+    lvl : 1
+  },
+  {
+    id : 14,
+    word : "??????",
+    type : "verb",
+    with : ["??"],
+    translation : {en : "to continue", ua : "продовжувати", de : "", ru : "продолжать"},
+    lvl : 1
+  },
+  {
+    id : 15,
+    word : "?????",
+    type : "verb",
+    with : ["?"],
+    translation : {en : "to answer", ua : "в≥дпов≥дати", de : "", ru : "отвечать"},
+    lvl : 1
+  },
+  {
+    id : 16,
+    word : "????",
+    type : "verb",
+    with : ["?", "??"],
+    translation : {en : "to receive", ua : "отримувати", de : "", ru : "получать"},
+    lvl : 1
+  },
+  {
+    id : 17,
+    word : "??????",
+    type : "verb",
+    with : ["?"],
+    translation : {en : "to explain", ua : "по€снювати", de : "", ru : "объ€сн€ть"},
+    lvl : 1
+  },
+  {
+    id : 18,
+    word : "?????",
+    type : "verb",
+    with : ["?", "??"],
+    translation : {en : "to spend", ua : "проводити час", de : "", ru : "проводить врем€"},
+    lvl : 1
+  },
+  {
+    id : 19,
+    word : "???????",
+    type : "verb",
+    with : ["????", "??"],
+    translation : {en : "to complain", ua : "скаржитис€", de : "", ru : "жаловатьс€"},
+    lvl : 1
+  },
+  {
+    id : 20,
+    word : "???????",
+    type : "verb",
+    with : ["??", "?"],
+    translation : {en : "to miss", ua : "сумувати", de : "", ru : "скучать"},
+    lvl : 1
+  },
+  {
+    id : 21,
+    word : "??????",
+    type : "verb",
+    with : ["?", "?", "??"],
+    translation : {en : "to return", ua : "повернути", de : "", ru : "вернуть"},
+    lvl : 1
+  },
+  {
+    id : 22,
+    word : "?????",
+    type : "verb",
+    with : ["??"],
+    translation : {en : "to dream", ua : "мр≥€ти", de : "", ru : "мечтать"},
+    lvl : 2
+  },
+  {
+    id : 23,
+    word : "??????",
+    type : "verb",
+    with : ["?"],
+    translation : {en : "to be tired of", ua : "набридати", de : "", ru : "надоедать"},
+    lvl : 1
+  },
+  {
+    id : 24,
+    word : "????",
+    type : "verb",
+    with : ["?", "??"],
+    translation : {en : "to ask", ua : "просити", de : "", ru : "просить"},
+    lvl : 1
+  },
+  {
+    id : 25,
+    word : "??????",
+    type : "verb",
+    with : ["??"],
+    translation : {en : "to decide", ua : "вир≥шувати", de : "", ru : "решать"},
+    lvl : 1
+  },
+  {
+    id : 26,
+    word : "??????",
+    type : "verb",
+    with : ["?", "??"],
+    translation : {en : "to get in", ua : "влаштовуватис€", de : "", ru : "устраиватьс€"},
+    lvl : 1
+  },
+  {
+    id : 27,
+    word : "?????",
+    type : "verb",
+    with : ["?"],
+    translation : {en : "to worry", ua : "турбуватис€", de : "", ru : "беспокоитьс€"},
+    lvl : 1
+  },
+  {
+    id : 28,
+    word : "?????",
+    type : "verb",
+    with : ["??"],
+    translation : {en : "to trust", ua : "дов≥р€ти", de : "", ru : "довер€ть"},
+    lvl : 1
+  },
+  {
+    id : 29,
+    word : "?????",
+    type : "verb",
+    with : ["??"],
+    translation : {en : "to rent", ua : "орендувати", de : "", ru : "арендовать"},
+    lvl : 2
+  },
+  {
+    id : 30,
+    word : "?????",
+    type : "verb",
+    with : ["??"],
+    translation : {en : "to sign", ua : "п≥дписувати", de : "", ru : "подписывать"},
+    lvl : 1
+  },
+  {
+    id : 31,
+    word : "????",
+    type : "verb",
+    with : ["?"],
+    translation : {en : "to rush", ua : "посп≥шати", de : "", ru : "спешить"},
+    lvl : 1
+  },
+  {
+    id : 32,
+    word : "?????",
+    type : "verb",
+    with : ["??"],
+    translation : {en : "to finish", ua : "зак≥нчувати", de : "", ru : "заканчивать"},
+    lvl : 1
+  },
+  {
+    id : 33,
+    word : "?????",
+    type : "verb",
+    with : ["??"],
+    translation : {en : "to prepare", ua : "п≥дготувати", de : "", ru : "подготовить"},
+    lvl : 1
+  },
+  {
+    id : 34,
+    word : "?????",
+    type : "verb",
+    with : ["??"],
+    translation : {en : "to forget", ua : "забувати", de : "", ru : "забывать"},
+    lvl : 1
+  },
+  {
+    id : 35,
+    word : "??????",
+    type : "verb",
+    with : ["??"],
+    translation : {en : "to order, to invite", ua : "замовл€ти, запрошувати", de : "", ru : "заказывать, приглашать"},
+    lvl : 1
+  },
+  {
+    id : 36,
+    word : "??????",
+    type : "verb",
+    with : ["??"],
+    translation : {en : "to apologize", ua : "вибачатис€", de : "", ru : "извин€тьс€"},
+    lvl : 1
+  },
+  {
+    id : 37,
+    word : "??????",
+    type : "verb",
+    with : ["??"],
+    translation : {en : "to stop", ua : "зупинити, перервати", de : "", ru : "прервать"},
+    lvl : 1
+  },
+  {
+    id : 38,
+    word : "?????",
+    type : "verb",
+    with : ["??", "?"],
+    translation : {en : "to choose", ua : "вибирати", de : "", ru : "выбирать"},
+    lvl : 2
+  },
+  {
+    id : 39,
+    word : "??????",
+    type : "verb",
+    with : ["?"],
+    translation : {en : "to listen", ua : "слухати", de : "", ru : "слушать"},
+    lvl : 2
+  },
+  {
+    id : 40,
+    word : "??????",
+    type : "verb",
+    with : ["?"],
+    translation : {en : "to make progress", ua : "продвигатис€", de : "", ru : "продвигатьс€"},
+    lvl : 2
+  },
+  {
+    id : 41,
+    word : "??????",
+    type : "verb",
+    with : ["?", "??"],
+    translation : {en : "to recommend", ua : "рекомендувати", de : "", ru : "рекомендовать"},
+    lvl : 2
+  },
+  {
+    id : 42,
+    word : "??????",
+    type : "verb",
+    with : ["?"],
+    translation : {en : "to succeed", ua : "дос€гти усп≥ху", de : "", ru : "преуспевать"},
+    lvl : 1
+  },
+  {
+    id : 43,
+    word : "????",
+    type : "verb",
+    with : ["?"],
+    translation : {en : "to win", ua : "перемогти", de : "", ru : "победить"},
+    lvl : 3
+  },
+  {
+    id : 44,
+    word : "??????",
+    type : "verb",
+    with : ["?"],
+    translation : {en : "to fail", ua : "провалити", de : "", ru : "провалить"},
+    lvl : 3
+  },
+  {
+    id : 45,
+    word : "??????",
+    type : "verb",
+    with : ["?"],
+    translation : {en : "to enter", ua : "заходити", de : "", ru : "входить"},
+    lvl : 1
+  },
+  {
+    id : 46,
+    word : "????",
+    type : "verb",
+    with : ["?"],
+    translation : {en : "to live", ua : "", de : "", ru : "проживать"},
+    lvl : 1
+  },
+  {
+    id : 47,
+    word : "?????",
+    type : "verb",
+    with : ["?", "?"],
+    translation : {en : "to travel", ua : "", de : "", ru : "гул€ть, путешествовать"},
+    lvl : 1
+  },
+  {
+    id : 48,
+    word : "?????",
+    type : "verb",
+    with : ["??"],
+    translation : {en : "to remember", ua : "", de : "", ru : "помнить"},
+    lvl : 1
+  }
+]
